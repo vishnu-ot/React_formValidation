@@ -1,71 +1,125 @@
-import { Fragment, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+import React, { useState } from "react";
+import "./styles/global.css";
 import "./App.css";
+import { InputFields } from "./components/InputFields/InputFields";
+import { RadioButton } from "./components/RadioButton/RadioButton";
+import SelectItems from "./components/SelectItems/SelectItems";
+export function App() {
+  const formHandler = (e) => {
+    e.preventDefault();
+    console.log(formFields);
+  };
 
-function App() {
-  const [fname, setFname] = useState("");
-  const [email, setEmail] = useState("");
-  const [gender, setGender] = useState();
-  const [country, setCountry] = useState();
-  const submitHandler = (event) => {
-    event.preventDefault();
-    console.log(fname);
-    console.log(email);
-    console.log(gender);
-    console.log(country);
+  const [formFields, setFormFields] = useState({
+    firstname: "",
+    email: "",
+    country: "",
+    gender: "",
+    skills: [],
+  });
+  const formDataHandler = (event) => {
+    const { name, value } = event.target;
+    console.log(value, ".....typing data");
+    console.log(name, "....name");
+    setFormFields((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
-  const emailHandler = (e) => {
-    setEmail(e.target.value);
-  };
-  const fnameHandler = (e) => {
-    setFname(e.target.value);
-  };
-  const genderHandler = (e) => {
-    setGender(e.target.value);
-  };
-  const coutryHandler = (e) => {
-    setCountry(e.target.value);
-  };
+  const [errorField, setErrorField] = useState({
+    firstname: false,
+    email: false,
+    country: false,
+    gender: false,
+    skills: false,
+  });
+
   return (
-    <form onSubmit={submitHandler}>
-      <div>
-        <label htmlFor="">First Name:</label>
-        <input type="text" name="firstname" onChange={fnameHandler} />
+    <form onSubmit={formHandler} autoComplete="off">
+      <h1>Registration Form</h1>
+      <p className="caption"> Please fill the form</p>
+      <InputFields
+        formDataHandler={formDataHandler}
+        type="input"
+        name="firstname"
+        id="firstname"
+        errorField={errorField}
+      />
+      <InputFields
+        formDataHandler={formDataHandler}
+        type="email"
+        name="email"
+        id="email"
+        errorField={errorField}
+      />
+      <label htmlFor="" className="gender-label">
+        Gender
+      </label>{" "}
+      <div className="gender-grps">
+        <RadioButton type="radio" errorField={errorField} />
+        <RadioButton type="radio" errorField={errorField} />
       </div>
-      <div>
-        <label htmlFor="">Email:</label>
-        <input type="email" name="email" onChange={emailHandler} />
-      </div>
-      <div>
-        <label htmlFor="">Gender:</label>
-        <label htmlFor="">Male</label>
-        <input
-          type="radio"
-          name="gender"
-          value="male"
-          onChange={genderHandler}
-        />
-        <label htmlFor="">Female</label>
-        <input
-          type="radio"
-          name="gender"
-          value="female"
-          onChange={genderHandler}
-        />
-      </div>
-      <div>
+      <SelectItems
+        name="country"
+        errorField={errorField}
+        formDataHandler={formDataHandler}
+      />
+      {/* <div className="input-section drop-down">
         <label htmlFor="">Country:</label>
-        <select name="country" id="" onChange={coutryHandler}>
-          <option value="">Select</option>
-          <option value="india">India</option>
-          <option value="uae">UAE</option>
-          <option value="usa">USA</option>
+        <select name="country" id="" onChange={formDataHandler}>
+          <option value="" className="select-option">
+            Select
+          </option>
+          <option className="select-option" value="india">
+            India
+          </option>
+          <option className="select-option" value="uae">
+            UAE
+          </option>
+          <option className="select-option" value="usa">
+            USA
+          </option>
         </select>
+        {errorField.country && <p className="danger">Country is required</p>}
+      </div> */}
+      <div className="input-section">
+        <div>
+          <label htmlFor="" className="skill-label">
+            Skills
+          </label>
+          <input
+            type="checkbox"
+            name="skills"
+            id="javascript"
+            value="javascript"
+            className="checkbox-group"
+          />
+          <label htmlFor="javascript" className="checkbox-label">
+            JavaScript
+          </label>
+          <input
+            type="checkbox"
+            name="skills"
+            id="react"
+            value="react"
+            className="checkbox-group"
+          />
+          <label htmlFor="react" className="checkbox-label">
+            React
+          </label>
+          <input
+            type="checkbox"
+            name="skills"
+            id="angular"
+            value="angular"
+            className="checkbox-group"
+          />
+          <label htmlFor="angular" className="checkbox-label">
+            Angular
+          </label>
+        </div>
       </div>
-      <input type="submit" onSubmit={submitHandler} />
+      <input type="submit" className="button" />
     </form>
   );
 }
-
-export default App;
