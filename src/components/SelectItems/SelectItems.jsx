@@ -1,10 +1,10 @@
 import React from "react";
 
-function SelectItems({ name, errorField, formDataHandler }) {
+function SelectItems({ name, errorField, formDataHandler,  isValidOnBlur }) {
   return (
     <div className="input-section drop-down">
       <label htmlFor="">{name}</label>
-      <select name="country" id="" onChange={formDataHandler}>
+      <select name="country" id="" onChange={formDataHandler} onBlur={isValidOnBlur}>
         <option value="" className="select-option">
           Select
         </option>

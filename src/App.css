@@ -40,6 +40,8 @@ input-section select {
 .gender-grps {
   display: flex;
   gap: 20px;
+  margin-top: 8px;
+  height: 25px;
 }
 
 .input-section input:focus {
@@ -94,4 +96,5 @@ form .button:hover {
   color: red;
   font-size: 14px;
   margin-top: 10px;
+  margin-bottom: 5px;
 }

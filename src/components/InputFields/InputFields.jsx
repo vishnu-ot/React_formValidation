@@ -1,11 +1,11 @@
 import React from "react";
-
-export function InputFields({ formDataHandler, type, name, id, errorField }) {
+import { upperCaseFirst } from "upper-case-first";
+export function InputFields({ formDataHandler, type, name, id, errorField, isValidOnBlur }) {
   return (
     <div className="input-section">
-      <label htmlFor="fname">{name}</label>
-      <input type={type} name={name} onChange={formDataHandler} id={id} />
-      {errorField.firstname && <p className="danger">First Name is required</p>}
+      <label htmlFor="fname">{upperCaseFirst(name)}</label>
+      <input type={type} name={name} onChange={formDataHandler} id={id} onBlur={isValidOnBlur} />
     </div>
   );
 }
+ 
